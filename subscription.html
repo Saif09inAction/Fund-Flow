@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subscription - FundFlow</title>
+  <link rel="stylesheet" href="subscription.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <span class="logo-icon"></span>
+      <span class="logo-text">FundFlow</span>
+    </div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </nav>
+  <main class="subscription-main">
+    <h2 class="subscription-title">Your Subscription</h2>
+    <div class="plan-grid">
+      <div class="plan-card current-plan">
+        <h3>Free</h3>
+        <p>Basic access to all features</p>
+        <div class="plan-price">₹0/month</div>
+        <div class="plan-status">Current Plan</div>
+      </div>
+      <div class="plan-card">
+        <h3>Pro</h3>
+        <p>Advanced analytics, more stocks, priority support</p>
+        <div class="plan-price">₹299/month</div>
+        <button class="plan-btn" disabled>Upgrade (Coming Soon)</button>
+      </div>
+      <div class="plan-card">
+        <h3>Premium</h3>
+        <p>All Pro features + exclusive webinars and insights</p>
+        <div class="plan-price">₹599/month</div>
+        <button class="plan-btn" disabled>Upgrade (Coming Soon)</button>
+      </div>
+    </div>
+    <button class="back-btn" onclick="window.location.href='home.html'">Back to Home</button>
+  </main>
+  <script src="subscription.js"></script>
+</body>
+</html> 

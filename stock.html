@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fundflow-stock section</title>
+  <link rel="stylesheet" href="stock.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="home.html" style="text-decoration:none;"><div class="logo">STOCKs</div></a>
+    <nav class="main-nav">
+      <a href="#" id="nav-markets" class="active">Markets</a>
+      <a href="#" id="nav-portfolio">Portfolio</a>
+      <a href="#" id="nav-wallet">Wallet</a>
+      <a href="#" id="nav-wishlist">Wishlist</a>
+      <a href="#" id="nav-history">History</a>
+    </nav>
+    <div class="search-container">
+      <form id="searchForm" class="search-form">
+        <input type="text" id="searchInput" placeholder="Search stocks..." />
+        <button type="submit" class="search-button">Search</button>
+      </form>
+    </div>
+  </header>
+  <main id="main-content">
+    <section id="stock-insights-section" class="card" style="margin-bottom:2rem;display:none;">
+      <h2 style="color:#7f53ac;margin-bottom:1rem;">Stock Insights & Prediction</h2>
+      <div id="stock-insights-content" style="min-height:120px;display:flex;flex-wrap:wrap;gap:1.5rem;"></div>
+    </section>
+    <!-- Table and content will be injected by JS -->
+  </main>
+
+  <!-- Trade Modal -->
+  <div id="trade-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" id="close-trade">&times;</span>
+      <div id="trade-body"></div>
+    </div>
+  </div>
+
+  <!-- Details Modal -->
+  <div id="details-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" id="close-details">&times;</span>
+      <div id="details-body"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notifications -->
+  <div id="toast-container"></div>
+
+  <script src="stock.js"></script>
+</body>
+</html> 

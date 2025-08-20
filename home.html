@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fundflow-Home-page</title>
+  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <span class="logo-icon"><i class="fa-solid fa-puzzle-piece"></IMG></i></span>
+      <span class="logo-text">FUNDFLOW</span>
+    </div>
+    <div class="navbar-center">
+      <a href="stock.html" class="nav-link">Stocks</a>
+      <a href="ai.html" class="nav-link">TradeVision Al</a>
+      <a href="feed.html" class="nav-link">Finance Feed</a>
+      <a href="chat.html" class="nav-link">TradeConnect</a>
+      <a href="game.html" class="nav-link">Finance Game</a>
+      <a href="#" class="nav-link">Resource Hub</a>
+      <a href="subscription.html" class="nav-link">Subscription</a>
+    </div>
+    <div class="navbar-user">
+      <span class="user-avatar"><i class="fa-solid fa-user"></i></span>
+      <span id="welcome-user" class="welcome-user"><span id="usernameDisplay">loading..</span>
+    </div>
+   
+  </nav>
+  <main class="hero-main">
+    <section class="hero-section">
+      <h1 class="hero-title">Your Journey to Financial Confidence Starts Here</h1>
+      <p class="hero-subtitle">Learn finance with AI tools, games and real-world simulations
+
+        
+      <div class="hero-actions">
+       
+      </div>
+    </section>
+    <section class="features-section">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-coins"></i></div>
+        <h2>Trade Real Stocks. Risk-Free</h2>
+        <p>Dive into live market action with paper trading — learn by doing, without losing a rupee.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <h2>Meet Your Smartest <br>Trading Partner</h2>
+        <p>Our powerful AI predicts stock trends with real-time accuracy <br> see what’s rising before it happens..</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-book"></i></div>
+        <h2>Don’t Trade Alone <br> Join the Movement</h2>
+        <p>Chat, share, and grow with a community of finance learners and traders just like you.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-business-time"></i></div>
+        <h2>...Play, Decide...<br> Learn Like a Pro</h2>
+        <p>Step into a virtual economy, make bold financial choices, and master real-world money skills through play.</p>
+      </div>
+      
+    </section>
+  </main> 
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    fetch('/session-username')
+      .then(res => res.json())
+      .then(data => {
+        const username = data.username;
+        if (!username) {
+          window.location.href = '/'; // Redirect to login
+          return;
+        }
+
+        document.getElementById('usernameDisplay').textContent = username;
+
+        const socket = io();
+        socket.emit('set username', username);
+
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+        const messages = document.getElementById('messages');
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          if (input.value.trim()) {
+            socket.emit('chat message', input.value.trim());
+            input.value = '';
+          }
+        });
+
+        socket.on('chat message', function (msg) {
+          const item = document.createElement('li');
+          item.textContent = msg;
+          messages.appendChild(item);
+          messages.scrollTop = messages.scrollHeight;
+        });
+      });
+  </script>
+</body>
+</html>

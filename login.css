@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: #131419;
+  font-family: 'Poppins', sans-serif;
+}
+.login-container {
+  background: #131419;
+  border-radius: 10px;
+  box-shadow: -5px -5px 10px rgba(255,255,255,0.05), 5px 5px 15px rgba(0,0,0,0.5);
+  padding: 40px 40px 60px;
+  width: 350px;
+  text-align: center;
+  margin-left: 8vw;
+}
+.login-container h2 {
+  color: #ffffff;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin-bottom: 30px;
+}
+.input-group {
+  text-align: left;
+  margin-top: 30px;
+}
+.input-box {
+  margin-top: 20px;
+}
+.input-box label {
+  display: block;
+  color: #868686;
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+.input-box input[type="text"],
+.input-box input[type="password"] {
+  width: 100%;
+  height: 50px;
+  background: #131419;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  padding: 5px 15px;
+  color: #ffffff;
+  font-size: 18px;
+  box-shadow: inset -2px -2px 6px rgba(255,255,255,0.05), inset 2px 2px 6px rgba(0,0,0,0.8);
+}
+.input-box input[type="text"]::placeholder,
+.input-box input[type="password"]::placeholder {
+  color: #555;
+  font-size: 18px;
+}
+.input-box input[type="submit"] {
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+  border-radius: 40px;
+  border: none;
+  background: #131419;
+  color: #faf8f8;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: -2px -2px 6px rgba(255,255,255,0.05), 2px 2px 6px rgba(0,0,0,0.8);
+  transition: background 0.2s;
+}
+.input-box input[type="submit"]:active {
+  background: #4d0096;
+}
+.forget {
+  margin-top: 30px;
+  color: #555;
+  font-size: 15px;
+}
+.forget a {
+  color: #ff0047;
+  text-decoration: none;
+  font-weight: 500;
+}
+.forget a:hover {
+  text-decoration: underline;
+}
+.login{
+  position: relative;
+  position: absolute;
+  top: 0;
+  right: -24%;
+  height: auto;
+ 
+}
+.image-gradient{
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0.6;
+  z-index: -1;
+}

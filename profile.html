@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - FundFlow</title>
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <span class="logo-icon"></span>
+      <span class="logo-text">FundFlow</span>
+    </div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </nav>
+  <main class="profile-main">
+    <div class="profile-card">
+      <h2>Your Profile</h2>
+      <form id="profile-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <button type="submit" class="profile-btn">Save</button>
+      </form>
+      <div id="profile-success" class="profile-success" style="display:none;">Profile updated!</div>
+      <button class="back-btn" onclick="window.location.href='home.html'">Back to Home</button>
+    </div>
+  </main>
+  <script src="profile.js"></script>
+</body>
+</html> 

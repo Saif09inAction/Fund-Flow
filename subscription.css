@@ -1,0 +1,200 @@
+/* Base Styles */
+body {
+  margin: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  background: linear-gradient(120deg, #020202 0%, #e0e7ff 100%);
+  min-height: 100vh;
+  color: #f5eeee;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #000000;
+  border-bottom: 1px solid #e1e1e2;
+  box-shadow: 0 2px 8px rgba(5, 35, 157, 0.08);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #7f53ac 0%, #2563eb 100%);
+  border-radius: 8px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.logo-text {
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.logout-btn {
+  background: linear-gradient(90deg, #969696 0%, #717274 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(100, 125, 222, 0.15);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(90deg, #000000 0%, #000000 100%);
+  transform: scale(1.03);
+}
+
+/* Main Content */
+.subscription-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+  padding: 2rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #574f5b78;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.589);
+  margin-top: 1rem;
+  padding: 1.5rem;
+}
+
+.subscription-title {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+}
+
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  width: 90%;
+  max-width: 900px;
+  margin-bottom: 2rem;
+}
+
+.plan-card {
+  background: #000000;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 220px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid #fbfbfc;
+}
+
+.plan-card.current-plan {
+  border: 2px solid #f0eef2;
+}
+
+.plan-card h3 {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 0.7rem;
+}
+
+.plan-card p {
+  color: #b0b8c1;
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.plan-price {
+  color: #7f53ac;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.7rem;
+}
+
+.plan-status {
+  color: #3ecf8e;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.plan-btn {
+  background: linear-gradient(90deg, #7f53ac 0%, #2563eb 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: not-allowed;
+  opacity: 0.7;
+  margin-top: 1rem;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+}
+
+.back-btn {
+  background: linear-gradient(90deg, #7f53ac 0%, #2563eb 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.back-btn:hover {
+  background: linear-gradient(90deg, #6e3a9e 0%, #1d4ed8 100%);
+  transform: scale(1.03);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .plan-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .navbar {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .subscription-main {
+    padding: 1rem;
+  }
+  
+  .plan-card {
+    padding: 1rem;
+    min-height: auto;
+  }
+  
+  .logo-text {
+    font-size: 1.2rem;
+  }
+  
+  .logout-btn {
+    padding: 0.5rem 1rem;
+  }
+}

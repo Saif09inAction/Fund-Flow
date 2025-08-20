@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finance Games - FundFlow</title>
+  <link rel="stylesheet" href="game.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <span class="logo-icon"></span>
+      <span class="logo-text">FundFlow</span>
+    </div>
+    <div class="user-stats">
+      <div class="xp-display">
+        <span class="xp-icon">⭐</span>
+        <span id="user-xp">0</span> XP
+      </div>
+      <div class="coins-display">
+        <span class="coin-icon">💵</span>
+        <span id="user-coins">0</span>
+      </div>
+    </div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </nav>
+
+  <!-- Main Gaming Interface -->
+  <main class="game-main">
+    <!-- Game Selection Screen -->
+    <div id="game-selection" class="game-section active">
+      <h1 class="section-title">🎮 Financial Education Games</h1>
+      <p class="section-subtitle">Learn finance through fun and interactive games!</p>
+      
+      <div class="games-grid">
+        <div class="game-card" onclick="selectGame('budget-master')">
+          <div class="game-icon">💰</div>
+          <h3>Budget Master</h3>
+          <p>Manage monthly income and make smart spending choices</p>
+          <div class="game-stats">
+            <span>High Score: <span id="budget-high-score">0</span></span>
+            <span>Level: <span id="budget-level">1</span></span>
+          </div>
+        </div>
+
+        <div class="game-card" onclick="selectGame('trivia-race')">
+          <div class="game-icon">🏁</div>
+          <h3>Financial Trivia Race</h3>
+          <p>Answer questions to race forward and win!</p>
+          <div class="game-stats">
+            <span>High Score: <span id="trivia-high-score">0</span></span>
+            <span>Level: <span id="trivia-level">1</span></span>
+          </div>
+        </div>
+
+        <div class="game-card" onclick="selectGame('investment-sim')">
+          <div class="game-icon">📈</div>
+          <h3>Investment Simulation</h3>
+          <p>Simulate long-term investments with market trends</p>
+          <div class="game-stats">
+            <span>High Score: <span id="investment-high-score">0</span></span>
+            <span>Level: <span id="investment-level">1</span></span>
+          </div>
+        </div>
+
+        <div class="game-card" onclick="selectGame('save-to-win')">
+          <div class="game-icon">🎯</div>
+          <h3>Save to Win</h3>
+          <p>Set savings goals and plan your income accordingly</p>
+          <div class="game-stats">
+            <span>High Score: <span id="save-high-score">0</span></span>
+            <span>Level: <span id="save-level">1</span></span>
+          </div>
+        </div>
+
+        <div class="game-card" onclick="selectGame('fraud-detective')">
+          <div class="game-icon">🕵️</div>
+          <h3>Fraud Alert Detective</h3>
+          <p>Identify financial scams and make safe decisions</p>
+          <div class="game-stats">
+            <span>High Score: <span id="fraud-high-score">0</span></span>
+            <span>Level: <span id="fraud-level">1</span></span>
+          </div>
+        </div>
+
+        <div class="game-card" onclick="selectGame('wealth-world')">
+          <div class="game-icon">🌍</div>
+          <h3>Wealth World</h3>
+          <p>Build your virtual empire with assets and investments</p>
+          <div class="game-stats">
+            <span>Net Worth: ₹<span id="wealth-net-worth">0</span></span>
+            <span>Assets: <span id="wealth-assets-count">0</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daily Challenges -->
+      <div class="daily-challenges">
+        <h2>🎯 Daily Challenges</h2>
+        <div id="challenges-list" class="challenges-grid">
+          <!-- Challenges will be populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Leaderboard -->
+      <div class="leaderboard-section">
+        <h2>🏆 Leaderboard</h2>
+        <div id="leaderboard" class="leaderboard-list">
+          <!-- Leaderboard will be populated by JavaScript -->
+        </div>
+      </div>
+
+      <button class="back-btn" onclick="window.location.href='home.html'">Back to Home</button>
+    </div>
+
+    <!-- Budget Master Game -->
+    <div id="budget-master-game" class="game-section">
+      <div class="game-header">
+        <h2>💰 Budget Master</h2>
+        <div class="game-info">
+          <span>Score: <span id="budget-score">0</span></span>
+          <span>Month: <span id="budget-month">1</span></span>
+          <span>Balance: ₹<span id="budget-balance">50000</span></span>
+        </div>
+      </div>
+
+      <div class="game-content">
+        <div id="budget-event" class="event-card">
+          <h3 id="event-title">Welcome to Budget Master!</h3>
+          <p id="event-description">You have ₹50,000 monthly income. Make smart choices to build wealth!</p>
+          <div id="budget-choices" class="choices-grid">
+            <!-- Choices will be populated by JavaScript -->
+          </div>
+        </div>
+
+        <div class="budget-stats">
+          <div class="stat-item">
+            <span>Emergency Fund:</span>
+            <span id="emergency-fund">₹0</span>
+          </div>
+          <div class="stat-item">
+            <span>Savings:</span>
+            <span id="total-savings">₹0</span>
+          </div>
+          <div class="stat-item">
+            <span>Expenses:</span>
+            <span id="total-expenses">₹0</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="back-to-games" onclick="showGameSelection()">← Back to Games</button>
+    </div>
+
+    <!-- Trivia Race Game -->
+    <div id="trivia-race-game" class="game-section">
+      <div class="game-header">
+        <h2>🏁 Financial Trivia Race</h2>
+        <div class="game-info">
+          <span>Score: <span id="trivia-score">0</span></span>
+          <span>Position: <span id="trivia-position">0</span>/10</span>
+          <span>Lives: <span id="trivia-lives">3</span></span>
+        </div>
+      </div>
+
+      <div class="race-track">
+        <div id="player-avatar" class="player-avatar">🏃🏻‍♂️‍➡️</div>
+        <div class="track-line"></div>
+        <div class="finish-line">🏁</div>
+      </div>
+
+      <div class="game-content">
+        <div id="trivia-question" class="question-card">
+          <h3 id="question-text">Ready to race?</h3>
+          <div id="trivia-choices" class="choices-grid">
+            <!-- Choices will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <button class="back-to-games" onclick="showGameSelection()">← Back to Games</button>
+    </div>
+
+    <!-- Investment Simulation Game -->
+    <div id="investment-sim-game" class="game-section">
+      <div class="game-header">
+        <h2>📈 Investment Simulation</h2>
+        <div class="game-info">
+          <span>Portfolio Value: ₹<span id="portfolio-value">100000</span></span>
+          <span>Year: <span id="simulation-year">2024</span></span>
+          <span>Return: <span id="total-return">0%</span></span>
+        </div>
+      </div>
+
+      <div class="game-content">
+        <div class="portfolio-overview">
+          <h3>Your Portfolio</h3>
+          <div id="portfolio-breakdown" class="portfolio-grid">
+            <!-- Portfolio will be populated by JavaScript -->
+          </div>
+        </div>
+
+        <div class="investment-options">
+          <h3>Choose Your Investments</h3>
+          <div id="investment-choices" class="choices-grid">
+            <!-- Investment options will be populated by JavaScript -->
+          </div>
+        </div>
+
+        <div class="market-news">
+          <h3>📰 Market News</h3>
+          <p id="market-news-text">Market conditions are stable...</p>
+        </div>
+      </div>
+
+      <button class="back-to-games" onclick="showGameSelection()">← Back to Games</button>
+    </div>
+
+    <!-- Save to Win Game -->
+    <div id="save-to-win-game" class="game-section">
+      <div class="game-header">
+        <h2>🎯 Save to Win</h2>
+        <div class="game-info">
+          <span>Income: ₹<span id="save-income">30000</span></span>
+          <span>Month: <span id="save-month">1</span></span>
+          <span>Goals Met: <span id="goals-met">0</span>/3</span>
+        </div>
+      </div>
+
+      <div class="game-content">
+        <div class="savings-goals">
+          <h3>Your Savings Goals</h3>
+          <div id="goals-list" class="goals-grid">
+            <!-- Goals will be populated by JavaScript -->
+          </div>
+        </div>
+
+        <div class="income-allocation">
+          <h3>Allocate Your Income</h3>
+          <div id="allocation-options" class="allocation-grid">
+            <!-- Allocation options will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <button class="back-to-games" onclick="showGameSelection()">← Back to Games</button>
+    </div>
+
+    <!-- Fraud Detective Game -->
+    <div id="fraud-detective-game" class="game-section">
+      <div class="game-header">
+        <h2>🕵️ Fraud Alert Detective</h2>
+        <div class="game-info">
+          <span>Score: <span id="fraud-score">0</span></span>
+          <span>Cases Solved: <span id="cases-solved">0</span></span>
+          <span>Accuracy: <span id="fraud-accuracy">0%</span></span>
+        </div>
+      </div>
+
+      <div class="game-content">
+        <div id="fraud-case" class="case-card">
+          <h3 id="case-title">Case #1</h3>
+          <p id="case-description">A new investment opportunity promises 500% returns in 30 days...</p>
+          <div class="case-evidence">
+            <h4>Evidence:</h4>
+            <ul id="evidence-list">
+              <!-- Evidence will be populated by JavaScript -->
+            </ul>
+          </div>
+          <div id="fraud-choices" class="choices-grid">
+            <!-- Choices will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <button class="back-to-games" onclick="showGameSelection()">← Back to Games</button>
+    </div>
+
+    <!-- Wealth World Game -->
+    <div id="wealth-world-game" class="game-section">
+      <div class="game-header">
+        <h2>🌍 Wealth World</h2>
+        <div class="game-info">
+          <span>Stock Wallet: ₹<span id="stock-wallet-balance">0</span></span>
+          <span>Net Worth: ₹<span id="wealth-net-worth">0</span></span>
+          <span>Assets: <span id="wealth-assets-count">0</span></span>
+          <span>Day: <span id="wealth-day">1</span></span>
+          <span style="display:none">Invested: <span id="wealth-total-invested">0</span></span>
+          <span style="display:none">Return: <span id="wealth-total-return">0%</span></span>
+        </div>
+      </div>
+
+      <div class="game-content">
+        <!-- Asset Shop -->
+        <div class="asset-shop">
+          <h3>🏪 Asset Shop</h3>
+          <div id="shop-items">
+            <!-- Shop items will be populated by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Portfolio Overview -->
+        <div class="portfolio-overview">
+          <h3>💼 Your Portfolio</h3>
+          <div id="portfolio-items" class="portfolio-grid">
+            <!-- Portfolio items will be populated by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Market Events -->
+        <div class="market-events">
+          <h3>📰 Market Events</h3>
+          <div id="market-events-log" class="events-log">
+            <!-- Market events will be populated by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="wealth-actions">
+          <button onclick="advanceTime()" class="action-btn">⏰ Advance Time (1 Day)</button>
+          <button onclick="sellAllAssets()" class="action-btn">💰 Sell All Assets</button>
+          <button onclick="showMarketAnalysis()" class="action-btn">📊 Market Analysis</button>
+        </div>
+      </div>
+
+      <button class="back-to-games" onclick="showGameSelection()">← Back to Games</button>
+    </div>
+  </main>
+
+  <!-- Educational Popup -->
+  <div id="educational-popup" class="popup-overlay">
+    <div class="popup-content">
+      <h3 id="popup-title">Financial Tip</h3>
+      <p id="popup-content">Learn about this financial concept...</p>
+      <button onclick="closePopup()">Got it!</button>
+    </div>
+  </div>
+
+  <!-- Market Analysis Modal -->
+  <div id="market-analysis-modal" class="market-analysis-modal">
+    <div class="market-analysis-content">
+      <h3>📊 Market Analysis</h3>
+      <div id="market-analysis-data">
+        <!-- Analysis data will be populated by JavaScript -->
+      </div>
+      <button onclick="closeMarketAnalysis()" class="action-btn" style="margin-top: 20px;">Close</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

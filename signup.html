@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup - FUNDFLOW</title>
+  <link rel="stylesheet" href="login.css" />
+</head>
+
+<body>
+  <spline-viewer class="login" url="https://prod.spline.design/kPrEABQAXrUJ3cgV/scene.splinecode"></spline-viewer>
+  <img class="image-gradient" src="gradient.png" alt="Gradient" />
+
+  <div class="login-container">
+    <h2>FUND-FLOW</h2>
+    <form id="signupForm" autocomplete="off" action="/signup" method="POST">
+      <div class="input-group">
+        <div class="input-box">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" placeholder="John123" required />
+        </div>
+        <div class="input-box">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="......." required />
+        </div>
+        <div class="input-box">
+          <input type="submit" value="SIGNUP" />
+        </div>
+      </div>
+    </form>
+    <a href="login.html" id="toggle-link">login</a>
+  </div>
+
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.38/build/spline-viewer.js"></script>
+</body>
+</html>

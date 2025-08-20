@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FundFlow Chat</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      background: linear-gradient(120deg, #020202 0%, #e0e7ff 100%);
+      color: #f5eeee;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #000000;
+      border-right: 1px solid #fdfbff;
+      color: white;
+      padding: 1rem;
+    }
+
+    .sidebar h3 {
+      margin-bottom: 1rem;
+      color: #ffffff;
+      font-size: 1.2rem;
+      border-bottom: 1px solid #fbf9ff;
+      padding-bottom: 0.5rem;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li button {
+      background: none;
+      border: none;
+      color: #ffffff;
+      padding: 0.6rem 0.8rem;
+      text-align: left;
+      width: 100%;
+      cursor: pointer;
+      border-radius: 6px;
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+
+    .sidebar li button:hover,
+    .sidebar li button.active {
+      background-color: #c1bfc5a7;
+      color: #ffffff;
+    }
+
+    .chat-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: #574f5b78;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-y: auto;
+      background: transparent;
+    }
+
+    .chat-messages li {
+      list-style: none;
+      margin-bottom: 1rem;
+      padding: 0.8rem 1rem;
+      background: #000000;
+      border-radius: 8px;
+      color: #ffffff;
+      border-left: 3px solid #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #form {
+      display: flex;
+      padding: 1rem;
+      background: #000000;
+      border-top: 1px solid #ffffff;
+    }
+
+    #input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border: 1px solid #ffffff;
+      border-radius: 8px;
+      background: #000000;
+      color: #ffffff;
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 0.95rem;
+    }
+
+    #input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    button[type="submit"] {
+      background: linear-gradient(90deg, #3586ff 0%, #1d8ced 100%);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      margin-left: 0.8rem;
+      cursor: pointer;
+      font-family: 'Inter', Arial, sans-serif;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+    }
+
+    button[type="submit"]:hover {
+      background: linear-gradient(90deg, #040404 0%, #020202 100%);
+      transform: scale(1.02);
+    }
+
+    .username-display {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 0.9rem;
+      color: #ffffff;
+      font-weight: 600;
+      background: #000000;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      border: 1px solid #ffffff;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 180px;
+        padding: 0.8rem;
+      }
+      
+      .chat-messages {
+        padding: 1rem;
+      }
+      
+      #form {
+        padding: 0.8rem;
+      }
+      
+      button[type="submit"] {
+        padding: 0.8rem 1.2rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+      }
+      
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #dfdfdf;
+      }
+      
+      .sidebar ul {
+        display: flex;
+        overflow-x: auto;
+        gap: 0.5rem;
+      }
+      
+      .sidebar li {
+        min-width: fit-content;
+      }
+      
+      .username-display {
+        position: static;
+        margin: 0.5rem 1rem 0 auto;
+        display: inline-block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h3>Chats</h3>
+    <ul id="user-list">
+      <li><button onclick="selectChat('community')" id="chat-community"># Community</button></li>
+    </ul>
+  </div>
+
+  <div class="chat-container">
+    <div class="username-display" id="usernameDisplay"></div>
+    <ul class="chat-messages" id="messages"></ul>
+    <form id="form">
+      <input id="input" autocomplete="off" placeholder="Type a message..." />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    let username = '';
+    let currentChat = 'community';
+    const socket = io();
+
+    fetch('/session-username')
+      .then(res => res.json())
+      .then(data => {
+        username = data.username;
+        if (!username) return window.location.href = '/';
+
+        document.getElementById('usernameDisplay').textContent = `Logged in as: ${username}`;
+
+        socket.emit('set username', username);
+        socket.emit('join room', currentChat);
+
+        fetch('/users')
+          .then(res => res.json())
+          .then(users => {
+            const userList = document.getElementById('user-list');
+            users.forEach(user => {
+              const li = document.createElement('li');
+              const btn = document.createElement('button');
+              btn.textContent = user;
+              btn.id = `chat-${user}`;
+              btn.onclick = () => selectChat(user);
+              li.appendChild(btn);
+              userList.appendChild(li);
+            });
+            highlightSelectedChat();
+          });
+      });
+
+    const messages = document.getElementById('messages');
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+
+    function highlightSelectedChat() {
+      document.querySelectorAll('.sidebar button').forEach(btn => btn.classList.remove('active'));
+      const selectedBtn = document.getElementById(`chat-${currentChat === 'community' ? 'community' : currentChat.split('-').find(name => name !== username)}`);
+      if (selectedBtn) selectedBtn.classList.add('active');
+    }
+
+    function selectChat(targetUser) {
+      if (targetUser === 'community') {
+        currentChat = 'community';
+      } else {
+        currentChat = [username, targetUser].sort().join('-');
+      }
+      messages.innerHTML = '';
+      socket.emit('join room', currentChat);
+      highlightSelectedChat();
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (input.value.trim()) {
+        socket.emit('chat message', { room: currentChat, text: input.value.trim() });
+        input.value = '';
+      }
+    });
+
+    socket.on('chat message', function (msg) {
+      const item = document.createElement('li');
+      item.textContent = msg;
+      messages.appendChild(item);
+      messages.scrollTop = messages.scrollHeight;
+    });
+  </script>
+</body>
+</html>
